@@ -1,0 +1,31 @@
+﻿<Window x:Class="Restaurant_System.OrderDetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="تفاصيل الطلب"
+        Height="400" Width="600"
+        WindowStartupLocation="CenterOwner"
+        FontFamily="Segoe UI">
+    <Grid Margin="15">
+        <StackPanel>
+            <TextBlock Text="تفاصيل الطلب" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,15"/>
+
+            <StackPanel Orientation="Vertical" Margin="0,0,0,10">
+                <TextBlock Text="اسم العميل:" FontWeight="Bold"/>
+                <TextBlock x:Name="CustomerNameText" FontSize="16" Margin="0,3,0,10"/>
+
+                <TextBlock Text="عنوان العميل:" FontWeight="Bold"/>
+                <TextBlock x:Name="CustomerAddressText" FontSize="16" Margin="0,3,0,10"/>
+            </StackPanel>
+
+            <DataGrid x:Name="ItemsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" FontSize="14" Height="250">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="العنصر" Binding="{Binding ItemName}" Width="2*"/>
+                    <DataGridTextColumn Header="الكمية" Binding="{Binding Quantity}" Width="*"/>
+                    <DataGridTextColumn Header="السعر" Binding="{Binding Price}" Width="*"/>
+                    <DataGridTextColumn Header="الإجمالي" Binding="{Binding Total}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+
+</Window>

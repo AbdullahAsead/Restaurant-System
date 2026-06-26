@@ -1,0 +1,155 @@
+﻿<Window x:Class="Restaurant_System.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant_System"
+        mc:Ignorable="d"
+        Title="مطعم أبو ياسر"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        ResizeMode="CanResize"
+        Background="#F0F2F5">
+
+    <Window.Resources>
+        <DropShadowEffect x:Key="ButtonShadow" ShadowDepth="2" Color="Gray" BlurRadius="5"/>
+
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Width" Value="220"/>
+            <Setter Property="Height" Value="55"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Effect" Value="{StaticResource ButtonShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="14" Padding="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E64A19"/>
+                    <Setter Property="Opacity" Value="0.97"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- ستايلات الأزرار -->
+        <Style x:Key="AdminButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="#1976D2"/>
+        </Style>
+        <Style x:Key="CashierButtonStyle" TargetType="Button" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="#4CAF50"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+
+        <!-- شعار الترحيب -->
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,40,0,0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+                <Border Width="90" Height="90" CornerRadius="12" Background="White" Padding="5" Margin="0,0,15,0"
+                        Effect="{StaticResource ButtonShadow}">
+                    <!-- ✅ الصورة الجديدة -->
+                    <Image Source="/images/AbuSoliman.png" Stretch="UniformToFill"/>
+                </Border>
+
+                <!-- ✅ النص الجديد -->
+                <TextBlock Text="مطعم أبو سليمان"
+                           FontSize="38"
+                           FontWeight="Bold"
+                           Foreground="#222"
+                           VerticalAlignment="Center"
+                           TextWrapping="Wrap"/>
+            </StackPanel>
+
+            <TextBlock Text="نظام إدارة المطعم الخاص بك بكل سهولة واحترافية"
+                       FontSize="18"
+                       Foreground="#555"
+                       HorizontalAlignment="Center"
+                       Margin="0,5,0,0"/>
+        </StackPanel>
+
+        <!-- الأزرار -->
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Orientation="Horizontal">
+            <Button x:Name="RegisterAdminButton"
+                    Content="Admin Login"
+                    Style="{StaticResource AdminButtonStyle}"
+                    Click="RegisterAdminButton_Click"/>
+            <Button x:Name="RegisterCashierButton"
+                    Content="Cashier Login"
+                    Style="{StaticResource CashierButtonStyle}"
+                    Click="RegisterCashierButton_Click"/>
+        </StackPanel>
+
+        <!-- التذييل -->
+        <Border VerticalAlignment="Bottom" Background="#FFFFFF" CornerRadius="12" Margin="20" Padding="15"
+                Effect="{StaticResource ButtonShadow}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Cairo Company"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="#333"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,8"/>
+
+                <TextBlock Text="Company: EndyForever Company for Restaurant Management"
+                           FontSize="14"
+                           Foreground="#555"
+                           HorizontalAlignment="Center"
+                           Grid.Row="1"/>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2" Margin="0,8,0,0">
+                    <StackPanel Margin="0,0,30,0" Width="220">
+                        <TextBlock Text="Manager: Eng. Ahmed Omar"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Foreground="#1976D2"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="📞 01149340882"
+                                   FontSize="13"
+                                   Foreground="#444"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,6,0,0"/>
+                    </StackPanel>
+
+                    <StackPanel Width="220">
+                        <TextBlock Text="Manager: Eng. Abdullah Asaad"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Foreground="#E64A19"
+                                   HorizontalAlignment="Center"/>
+                        <TextBlock Text="📞 01091906671"
+                                   FontSize="13"
+                                   Foreground="#444"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,6,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <TextBlock Text="All Rights Reserved © 2025 | Developed by Abdullah Asaad"
+                           FontSize="12"
+                           Foreground="#888"
+                           HorizontalAlignment="Center"
+                           Margin="0,15,0,0"
+                           Grid.Row="3"/>
+            </Grid>
+        </Border>
+
+    </Grid>
+</Window>

@@ -1,0 +1,97 @@
+﻿<Window x:Class="Restaurant_System.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant_System"
+        mc:Ignorable="d"
+        Title="Login"
+        Width="500"
+        Height="600"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="#F4F6F9">
+
+    <Window.Resources>
+        <DropShadowEffect x:Key="CardShadow" ShadowDepth="4" Color="#888" BlurRadius="10"/>
+
+        <!-- زرار لوجين احترافي -->
+        <Style x:Key="LoginButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="40"/>
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Margin" Value="0,20,0,0"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#2196F3"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Border Width="380" Padding="30" CornerRadius="20" Background="White"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                Effect="{StaticResource CardShadow}">
+
+            <StackPanel>
+
+                <!-- ✅ أيقونة المطعم متظبطة -->
+                <Border Width="80" Height="80" CornerRadius="12" Background="White" Padding="5" Margin="0,0,0,10"
+                        HorizontalAlignment="Center" Effect="{StaticResource CardShadow}">
+                    <Image Source="images/AbuSoliman.png" Stretch="UniformToFill"/>
+                </Border>
+
+                <!-- ✅ عنوان ترحيبي -->
+                <TextBlock Text="Welcome Back!"
+                           FontSize="24" FontWeight="Bold"
+                           Foreground="#333"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,5"/>
+
+                <TextBlock Text="Please login to continue"
+                           FontSize="14"
+                           Foreground="#777"
+                           HorizontalAlignment="Center"
+                           Margin="0,0,0,20"/>
+
+                <!-- ✅ فورم تسجيل الدخول -->
+                <Label Content="Username" FontWeight="SemiBold" FontSize="14" Foreground="#444"/>
+                <TextBox x:Name="usernameBox"
+                         Height="35" Padding="8"
+                         FontSize="14"
+                         BorderBrush="#2196F3" BorderThickness="1"
+                         Background="#FAFAFA" Foreground="#333"
+                         Margin="0,0,0,15"/>
+
+                <Label Content="Password" FontWeight="SemiBold" FontSize="14" Foreground="#444"/>
+                <PasswordBox x:Name="passwordBox"
+                             Height="35" Padding="8"
+                             FontSize="14"
+                             BorderBrush="#2196F3" BorderThickness="1"
+                             Background="#FAFAFA" Foreground="#333"/>
+
+                <!-- ✅ زرار لوجين -->
+                <Button Content="Login"
+                        Style="{StaticResource LoginButtonStyle}"
+                        Click="Login_Click"
+                        HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

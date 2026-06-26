@@ -1,0 +1,135 @@
+﻿<Window x:Class="Restaurant_System.DeliveryClosingForAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Restaurant_System"
+        mc:Ignorable="d"
+        Title="تقفيل شيفت الدليفري - الأدمن"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResize"
+        Background="White"
+        Height="720" Width="1050">
+
+    <Window.Resources>
+        <DropShadowEffect x:Key="CardShadow" ShadowDepth="2" Color="Gray" BlurRadius="8"/>
+
+        <Style x:Key="RoundedBox" TargetType="Border">
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="10"/>
+        </Style>
+
+        <Style x:Key="MainButton" TargetType="Button">
+            <Setter Property="Height" Value="45"/>
+            <Setter Property="Width" Value="180"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Effect" Value="{StaticResource CardShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                Padding="{TemplateBinding Padding}"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              RecognizesAccessKey="True"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="تقفيل شيفت الدليفري (خاصة بالأدمن)"
+                   FontSize="26"
+                   FontWeight="Bold"
+                   Foreground="#1976D2"
+                   HorizontalAlignment="Center"
+                   Margin="0,0,0,20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- الجانب الأيسر -->
+            <Border Style="{StaticResource RoundedBox}">
+                <StackPanel>
+                    <TextBlock Text="اختيار موظف التوصيل:" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <ComboBox x:Name="DeliveryComboBox"
+                              FontSize="16"
+                              Height="35"
+                              SelectionChanged="DeliveryComboBox_SelectionChanged"
+                              DisplayMemberPath="Name"
+                              SelectedValuePath="Id"/>
+
+                    <StackPanel Margin="0,20,0,0">
+                        <TextBlock Text="الاسم:" FontWeight="Bold"/>
+                        <TextBlock x:Name="EmployeeNameText" FontSize="16" Margin="0,3,0,10"/>
+
+                        <TextBlock Text="رقم الهاتف:" FontWeight="Bold"/>
+                        <TextBlock x:Name="EmployeePhoneText" FontSize="16" Margin="0,3,0,10"/>
+
+                        <TextBlock Text="عدد الطلبات:" FontWeight="Bold"/>
+                        <TextBlock x:Name="OrdersCountText" FontSize="16" Margin="0,3,0,10"/>
+
+                        <TextBlock Text="الإجمالي الكلي:" FontWeight="Bold"/>
+                        <TextBlock x:Name="TotalAmountText" FontSize="16" Margin="0,3,0,20"/>
+                    </StackPanel>
+
+                    <Button Content="🧾 طباعة تقرير الشيفت" Style="{StaticResource MainButton}" Click="PrintButton_Click"/>
+                    <Button Content="♻️ تصفير هذا الموظف" Style="{StaticResource MainButton}" Background="#E53935" Click="ResetSingleDelivery_Click"/>
+                    <Button Content="🔥 تصفير جميع الموظفين" Style="{StaticResource MainButton}" Background="#C62828" Click="ResetAllDeliveries_Click"/>
+                </StackPanel>
+            </Border>
+
+            <!-- الجانب الأيمن -->
+            <Border Style="{StaticResource RoundedBox}" Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="الطلبات الخاصة بالموظف" FontSize="18" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <DataGrid x:Name="OrdersDataGrid"
+          AutoGenerateColumns="False"
+          IsReadOnly="True"
+          CanUserAddRows="False"
+          FontSize="14"
+          Height="450"
+          MouseDoubleClick="OrdersDataGrid_MouseDoubleClick">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="رقم الأوردر" Binding="{Binding Id}" Width="Auto"/>
+                            <DataGridTextColumn Header="العميل" Binding="{Binding Customer.Name}" Width="*"/>
+                            <DataGridTextColumn Header="العنوان" Binding="{Binding Customer.Address}" Width="2*"/>
+                            <DataGridTextColumn Header="الإجمالي" Binding="{Binding TotalPrice}" Width="Auto"/>
+
+                            <DataGridTextColumn Header="قيمة التوصيل" Binding="{Binding DeliveryFee}" Width="Auto"/>
+                            <DataGridTextColumn Header="الإجمالي مع التوصيل" Binding="{Binding TotalWithDelivery}" Width="Auto"/>
+                            <DataGridTextColumn Header="تاريخ الطلب" Binding="{Binding Date}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0,20,10,0">
+            <Button Content="⬅ رجوع" Style="{StaticResource MainButton}" Width="120" Click="Back_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,59 @@
+﻿<Window x:Class="Restaurant_System.AddAdmin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="إضافة مدير"
+        Height="480"
+        Width="500"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="NoResize"
+        Background="White">
+
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ✅ العنوان -->
+        <TextBlock Text="إضافة مدير جديد"
+                   FontSize="24"
+                   FontWeight="Bold"
+                   Foreground="#1976D2"
+                   HorizontalAlignment="Center"
+                   Margin="0,10"/>
+
+        <!-- ✅ النموذج -->
+        <Border Grid.Row="1"
+                Background="#F0F0F0"
+                CornerRadius="12"
+                Padding="20"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                Width="370">
+            <StackPanel>
+
+                <TextBlock Text="اسم المدير:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="FullNameTextBox" Height="35" Margin="0,0,0,10"/>
+
+                <TextBlock Text="اسم المستخدم:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <TextBox x:Name="UsernameTextBox" Height="35" Margin="0,0,0,10"/>
+
+                <TextBlock Text="كلمة المرور:" FontWeight="SemiBold" Margin="0,0,0,5"/>
+                <PasswordBox x:Name="PasswordBox" Height="35" Margin="0,0,0,20"/>
+
+                <Button Content="إضافة المدير"
+                        Click="AddAdmin_Click"
+                        Background="#2196F3"
+                        Foreground="White"
+                        FontWeight="Bold"
+                        Height="45"
+                        Width="200"
+                        HorizontalAlignment="Center"
+                        Cursor="Hand"
+                        BorderThickness="0"
+                        Padding="5"
+                        BorderBrush="Transparent"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

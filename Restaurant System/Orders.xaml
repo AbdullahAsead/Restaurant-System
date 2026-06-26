@@ -1,0 +1,307 @@
+﻿<Window x:Class="Restaurant_System.Orders"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Restaurant Orders"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        ResizeMode="CanResize"
+        Background="White">
+
+    <Window.Resources>
+        <DropShadowEffect x:Key="ButtonShadow" ShadowDepth="2" Color="Gray" BlurRadius="5"/>
+
+        <!-- أزرار الأقسام -->
+        <Style x:Key="CategoryButtonStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="90"/>
+            <Setter Property="Height" Value="36"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="Padding" Value="8,4"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="BorderBrush" Value="#2196F3"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource ButtonShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="8">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E3F2FD"/>
+                    <Setter Property="BorderBrush" Value="#1976D2"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- أزرار الإجراءات -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="MinWidth" Value="110"/>
+            <Setter Property="Height" Value="50"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Effect" Value="{StaticResource ButtonShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="8" Padding="6,2">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Opacity" Value="0.9"/>
+                    <Setter Property="Background" Value="#1565C0"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- كارت عنصر المنيو -->
+        <Style x:Key="MenuItemCard" TargetType="Border">
+            <Setter Property="Width" Value="140"/>
+            <Setter Property="Height" Value="90"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Margin" Value="6"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2196F3"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="4" ShadowDepth="2" Color="Gray"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Viewbox StretchDirection="DownOnly" Stretch="Uniform" Grid.Row="0">
+            <Grid Width="1400" Height="800" Margin="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <!-- العنوان -->
+                <Border Grid.Row="0" Background="#2196F3" CornerRadius="12" Padding="10" Margin="0,0,0,10">
+                    <DockPanel>
+                        <Image Source="IMG/Zahra_alex.jpg" Width="50" Height="50" Stretch="UniformToFill" DockPanel.Dock="Left" Margin="0,0,10,0"/>
+                        <TextBlock Text="نظام الطلبات - Restaurant Order System"
+                                   FontSize="28"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"/>
+                    </DockPanel>
+                </Border>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                        <ColumnDefinition Width="2.5*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!-- يسار -->
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- الأقسام -->
+                        <Border Margin="0,0,0,8" Padding="6" CornerRadius="10" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" Height="170">
+                                <WrapPanel x:Name="CategoriesPanel" />
+                            </ScrollViewer>
+                        </Border>
+
+                        <!-- العناصر -->
+                        <Border Grid.Row="1" Padding="6" CornerRadius="8" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <WrapPanel x:Name="ItemsPanel" />
+                            </ScrollViewer>
+                        </Border>
+                    </Grid>
+
+                    <!-- منتصف -->
+                    <Grid Grid.Column="1" Margin="8,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="0.45*"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="ملخص الطلب" FontSize="20" FontWeight="Bold" Margin="0,0,0,8" HorizontalAlignment="Center"/>
+
+                        <!-- ملخص الطلب -->
+                        <Border Grid.Row="1" Padding="4" CornerRadius="8" BorderBrush="#E0E0E0" BorderThickness="1">
+                            <ScrollViewer>
+                                <ListBox x:Name="orderListBox" FontSize="20" FontWeight="SemiBold"/>
+                            </ScrollViewer>
+                        </Border>
+
+                        <!-- لوحة الأرقام -->
+                        <UniformGrid Grid.Row="2" Columns="3" Rows="4" Margin="0,10,0,0" HorizontalAlignment="Center">
+                            <Button Content="1" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="2" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="3" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="4" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="5" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="6" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="7" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="8" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="9" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="0" Width="90" Height="80" Margin="3" Click="Numpad_Click" FontSize="22"/>
+                            <Button Content="C" Width="90" Height="80" Margin="3" Click="ClearNumpad_Click" FontSize="22"/>
+                            <Button Content="OK" Width="90" Height="80" Margin="3" Click="ClearNumpad_Click"/>
+                        </UniformGrid>
+
+                        <!-- أزرار الإجراءات -->
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <Button Content="Cash" Background="#4CAF50" Style="{StaticResource ActionButtonStyle}" Click="Finish_Click"/>
+                            <Button Content="Delete" Background="#F44336" Style="{StaticResource ActionButtonStyle}" Click="Delete_Click"/>
+                            <Button Content="Delete All" Background="#FF5722" Style="{StaticResource ActionButtonStyle}" Click="DeleteAll_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <!-- يمين -->
+                    <StackPanel Grid.Column="2" Margin="8,0,0,0" x:Name="DeliveryDetailsPanel">
+                        <TextBlock Text="بيانات العميل (عند التوصيل فقط)" FontSize="20" FontWeight="Bold" Margin="0,0,0,8" HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="الاسم:" FontSize="16"/>
+                        <TextBox x:Name="CustomerNameTextBox" Margin="0,5" FontSize="18" Height="40"/>
+
+                        <TextBlock Text="العنوان:" FontSize="16"/>
+                        <TextBox x:Name="CustomerAddressTextBox" Margin="0,5" FontSize="18" Height="40"/>
+
+                        <TextBlock Text="رقم الهاتف:" FontSize="16"/>
+                        <TextBox x:Name="CustomerPhoneTextBox" Margin="0,5" FontSize="18" Height="40" TextChanged="CustomerPhoneTextBox_TextChanged"/>
+
+                        <TextBlock Text="هاتف بديل:" FontSize="16"/>
+                        <TextBox x:Name="AlternatePhoneTextBox" Margin="0,5" FontSize="18" Height="40" TextChanged="AlternatePhoneTextBox_TextChanged"/>
+
+         
+
+
+                        <TextBlock Text="ملاحظه:" FontSize="16"/>
+                        <TextBox x:Name="note" Margin="0,5" FontSize="18" Height="40" TextChanged="note_TextChanged"/>
+                        <TextBlock Text="خدمه التوصيل:" FontSize="16"/>
+                        <TextBox x:Name="DF" Margin="0,5" FontSize="18" Height="40" TextChanged="DF_TextChanged"/>
+                        <TextBlock Text="منطقة التوصيل:" FontSize="16"/>
+                        <ComboBox x:Name="DeliveryPlaceComboBox"
+                        Margin="0,5"
+                        FontSize="18"
+                        Height="40"
+                        DisplayMemberPath="PlaceName"
+                        SelectedValuePath="DeliveryCost"
+                        SelectionChanged="DeliveryPlaceComboBox_SelectionChanged"/>
+
+                        <TextBlock Text="المندوب:" FontSize="16"/>
+                        <ComboBox x:Name="DeliveryPersonComboBox" Margin="0,5" FontSize="18" Height="40"/>
+
+                        <!-- حذف رقم المندوب ورقم الطاولة -->
+
+                        <!-- إضافة زر جديد -->
+
+
+
+                        <!-- إضافة زر جديد وتشيك بوكس التوصيل -->
+                        <StackPanel Orientation="Vertical"
+            Margin="0,10,0,0"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+
+                            <!-- الصف الأول: زر إضافة طيار + تشيك بوكس -->
+                            <StackPanel Orientation="Horizontal"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Margin="0,0,0,10">
+                                <Button x:Name="AddDeliveryPersonButton"
+                Content="إضافة طيار"
+                Background="#2196F3"
+                Foreground="White"
+                FontSize="15"
+                FontWeight="Bold"
+                Height="38"
+                Width="120"
+                Cursor="Hand"
+                Click="AddDeliveryPersonButton_Click"
+                BorderBrush="Transparent"
+                Effect="{StaticResource ButtonShadow}"
+                Style="{StaticResource ActionButtonStyle}"
+                Margin="0,0,50,0"/>
+
+                                <CheckBox x:Name="IsDeliveryCheckBox"
+                  Content="توصيل؟"
+                  FontSize="15"
+                  FontWeight="Bold"
+                  VerticalAlignment="Center"
+                  Checked="IsDeliveryCheckBox_Checked"
+                  Unchecked="IsDeliveryCheckBox_Unchecked">
+                                    <CheckBox.LayoutTransform>
+                                        <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                                    </CheckBox.LayoutTransform>
+                                </CheckBox>
+                            </StackPanel>
+
+                            <!-- الصف الثاني: رقم السفرة -->
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                                <TextBlock Text="" 
+                   FontSize="2"
+                   FontWeight="Bold"
+                   Margin="150,0,900,5"
+                   HorizontalAlignment="Center"/>
+                                <TextBox x:Name="TableNumberTextBox"
+                 Width="100"
+                 Height="40"
+                 FontSize="18"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 BorderBrush="#2196F3"
+                 BorderThickness="1"
+                 Padding="5"/>
+                            </StackPanel>
+
+                        </StackPanel>
+
+
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Viewbox>
+
+        <!-- زر الرجوع -->
+        <Button Grid.Row="1"
+                Content="←"
+                Width="50" Height="30"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="10"
+                Background="#2196F3" Foreground="White" FontWeight="Bold"
+                Cursor="Hand"
+                Click="Back_Click"
+                Style="{StaticResource ActionButtonStyle}"/>
+    </Grid>
+</Window>

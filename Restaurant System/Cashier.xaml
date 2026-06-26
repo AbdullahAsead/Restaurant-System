@@ -1,0 +1,184 @@
+﻿<Window x:Class="Restaurant_System.Cashier"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Cashier"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Background="White">
+
+    <Window.Resources>
+        <!-- ظل الأزرار -->
+        <DropShadowEffect x:Key="ButtonShadow" ShadowDepth="3" Color="#444" BlurRadius="8"/>
+
+        <!-- ستايل الأزرار (موحد) -->
+        <Style x:Key="ActionButtonStyle" TargetType="Button">
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Background" Value="#1976D2"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Effect" Value="{StaticResource ButtonShadow}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="12"
+                                Padding="10"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#1565C0"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="#0D47A1"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- ستايل مخصص للـ GroupBox -->
+        <Style TargetType="GroupBox" x:Key="RoundedGroupBox">
+            <Setter Property="Margin" Value="12"/>
+            <Setter Property="Padding" Value="12"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="BorderBrush" Value="#DDDDDD"/>
+            <Setter Property="BorderThickness" Value="1.2"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="10"
+                                SnapsToDevicePixels="True"
+                                Padding="{TemplateBinding Padding}">
+                            <DockPanel>
+                                <!-- Header -->
+                                <ContentPresenter ContentSource="Header"
+                                                  RecognizesAccessKey="True"
+                                                  DockPanel.Dock="Top"
+                                                  Margin="6,0,6,10"
+                                                  HorizontalAlignment="Center"
+                                                  VerticalAlignment="Top"/>
+                                <!-- Content -->
+                                <ContentPresenter />
+                            </DockPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- رأس الصفحة -->
+        <DockPanel Background="#1976D2" Height="75" VerticalAlignment="Top">
+            <TextBlock Text="لوحة تحكم الكاشير"
+                       FontSize="28"
+                       FontWeight="Bold"
+                       Foreground="White"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Margin="0,6,0,0"/>
+        </DockPanel>
+
+        <!-- المحتوى -->
+        <ScrollViewer Grid.Row="1" Margin="20" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <!-- صف جديد لتقفيل الديلفيري -->
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- إدارة الأقسام -->
+                <GroupBox Header="إدارة الأقسام" Grid.Row="0" Grid.Column="0" Style="{StaticResource RoundedGroupBox}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="أضف قسم جديد"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="AddCategory_Click"/>
+                        <Button Content="عرض/تعديل الأقسام"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="ViewEditCategories_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- إدارة العناصر -->
+                <GroupBox Header="إدارة العناصر" Grid.Row="0" Grid.Column="1" Style="{StaticResource RoundedGroupBox}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="أضف عنصر جديد"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="AddItem_Click"/>
+                        <Button Content="عرض/تعديل العناصر"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="ViewEditItems_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- بيانات العملاء -->
+                <GroupBox Header="بيانات العملاء" Grid.Row="0" Grid.Column="2" Style="{StaticResource RoundedGroupBox}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="عرض بيانات العملاء"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="ViewCustomersData_Click"/>
+                        <Button Content="عرض ملخص الطلبات"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="ViewOrdersSummary_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+                <!-- ✅ جروب جديد لتقفيل الديلفيري -->
+                <GroupBox Header="إدارة الديلفيري" Grid.Row="1" Grid.ColumnSpan="3" Style="{StaticResource RoundedGroupBox}">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Button Content="تقفيل ديلفيري"
+                                Style="{StaticResource ActionButtonStyle}"
+                                Click="CloseDelivery_Click"/>
+                    </StackPanel>
+                </GroupBox>
+
+            </Grid>
+        </ScrollViewer>
+
+        <!-- زر الرجوع -->
+        <Grid Grid.Row="2" Margin="10">
+            <Button Content="← Back"
+                    Width="90"
+                    Height="41"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Bottom"
+                    Background="#2196F3"
+                    Foreground="White"
+                    FontWeight="Bold"
+                    Cursor="Hand"
+                    Style="{StaticResource ActionButtonStyle}"
+                    Click="Back_Click"
+                    Margin="8,0,0,8"/>
+        </Grid>
+    </Grid>
+</Window>

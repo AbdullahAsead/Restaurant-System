@@ -1,0 +1,122 @@
+﻿<Window x:Class="Restaurant_System.DeliveryClosing"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="تـقـفـيـل شـيـفـت الـديـلـيـفـري"
+        WindowStartupLocation="CenterScreen"
+        Height="700" Width="1000"
+        FontFamily="Segoe UI" Background="#FFF8F8F8">
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- 🔹 العنوان -->
+        <TextBlock Text="تـقـفـيـل شـيـفـت الـديـلـيـفـري"
+                   FontSize="28"
+                   FontWeight="Bold"
+                   Foreground="#2B3A67"
+                   HorizontalAlignment="Center"
+                   Margin="0,10,0,20"/>
+
+        <!-- 🔹 اختيار العامل -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1" Margin="0,0,0,20" HorizontalAlignment="Center">
+            <TextBlock Text="اختر عامل التوصيل:" FontSize="18" VerticalAlignment="Center" Margin="0,0,10,0"/>
+            <ComboBox x:Name="DeliveryComboBox"
+                      Width="250"
+                      Height="35"
+                      FontSize="16"
+                      DisplayMemberPath="Name"
+                      SelectedValuePath="Id"
+                      SelectionChanged="DeliveryComboBox_SelectionChanged"/>
+        </StackPanel>
+
+        <!-- 🔹 معلومات العامل -->
+        <Border Grid.Row="2" Background="White" CornerRadius="10" Padding="10" Margin="0,0,0,20" BorderBrush="#DDD" BorderThickness="1">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="اسم العامل: " FontWeight="Bold" FontSize="18"/>
+                    <TextBlock x:Name="EmployeeNameText" FontSize="18"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                    <TextBlock Text="رقم الهاتف: " FontWeight="Bold" FontSize="18"/>
+                    <TextBlock x:Name="EmployeePhoneText" FontSize="18"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="عدد الطلبات: " FontWeight="Bold" FontSize="18"/>
+                    <TextBlock x:Name="OrdersCountText" FontSize="18"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- 🔹 جدول الطلبات -->
+        <DataGrid x:Name="OrdersDataGrid"
+          Grid.Row="2"
+          Margin="0,140,0,60"
+          AutoGenerateColumns="False"
+          CanUserAddRows="False"
+          IsReadOnly="True"
+          FontSize="15"
+          HeadersVisibility="Column"
+          GridLinesVisibility="All"
+          BorderBrush="#DDD"
+          BorderThickness="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="رقم الأوردر" Binding="{Binding Id}" Width="*" />
+                <DataGridTextColumn Header="العميل" Binding="{Binding Customer.Name}" Width="2*" />
+                <DataGridTextColumn Header="العنوان" Binding="{Binding Customer.Address}" Width="2*" />
+                <DataGridTextColumn Header="الإجمالي" Binding="{Binding TotalPrice}" Width="*" />
+                <DataGridTextColumn Header="قيمة التوصيل" Binding="{Binding DeliveryFee}" Width="*" />
+                <DataGridTextColumn Header="الإجمالي مع التوصيل" Binding="{Binding TotalWithDelivery}" Width="*" />
+                <DataGridTextColumn Header="تاريخ الطلب" Binding="{Binding Date}" Width="2*" />
+
+                <DataGridTemplateColumn Header="التفاصيل" Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="📦 عرض التفاصيل"
+                            Background="#2B3A67"
+                            Foreground="White"
+                            Padding="5,2"
+                            FontSize="14"
+                            BorderThickness="0"
+                            Click="ViewDetails_Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- 🔹 الإجمالي النهائي + زر الطباعة -->
+        <DockPanel Grid.Row="3" LastChildFill="False" Margin="0,20,0,0" HorizontalAlignment="Center">
+            <TextBlock Text="الإجمالي الكلي: "
+                       FontSize="20"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="0,0,10,0"/>
+            <TextBlock x:Name="TotalAmountText"
+                       FontSize="20"
+                       Foreground="DarkGreen"
+                       FontWeight="Bold"
+                       VerticalAlignment="Center"
+                       Margin="0,0,20,0"/>
+
+            <!-- 🔹 زر الطباعة -->
+            <Button x:Name="PrintButton"
+                    Content="🖨️ طباعة التقرير"
+                    FontSize="18"
+                    Padding="15,5"
+                    Background="#2B3A67"
+                    Foreground="White"
+                    BorderThickness="0"
+                    Width="200"
+                    Height="45"
+                    Click="PrintButton_Click"/>
+        </DockPanel>
+    </Grid>
+</Window>
